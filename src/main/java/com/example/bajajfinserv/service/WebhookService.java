@@ -33,7 +33,6 @@ public class WebhookService {
 
             
             JSONObject jsonResponse = new JSONObject(rawResponse);
-
             
             if (!jsonResponse.has("webhook") || !jsonResponse.has("accessToken")) {
                 System.err.println("❌ Missing 'webhook' or 'accessToken' in response. Please check API request details.");
@@ -47,7 +46,7 @@ public class WebhookService {
             System.out.println("✅ Webhook URL: " + webhookResponse.getWebhookUrl());
             System.out.println("✅ Access Token: " + webhookResponse.getAccessToken());
 
-            // Step 2: Prepare final SQL query (Question 1)
+        
             String finalQuery = "SELECT E1.EMP_ID, E1.FIRST_NAME, E1.LAST_NAME, D.DEPARTMENT_NAME, "
                   + "COUNT(E2.EMP_ID) AS YOUNGER_EMPLOYEES_COUNT "
                   + "FROM EMPLOYEE E1 "
@@ -58,14 +57,14 @@ public class WebhookService {
                   + "ORDER BY E1.EMP_ID DESC;";
 
 
-            // Step 3: Send final SQL to webhook
+            
             JSONObject answerBody = new JSONObject();
             answerBody.put("finalQuery", finalQuery);
 
             HttpHeaders headers2 = new HttpHeaders();
             headers2.setContentType(MediaType.APPLICATION_JSON);
 
-            // FIX: API expects raw token, not Bearer prefix
+        
             headers2.set("Authorization", webhookResponse.getAccessToken());
 
             HttpEntity<String> entity2 = new HttpEntity<>(answerBody.toString(), headers2);
