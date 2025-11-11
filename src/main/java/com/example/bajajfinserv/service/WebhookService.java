@@ -13,12 +13,12 @@ public class WebhookService {
         RestTemplate restTemplate = new RestTemplate();
 
         try {
-            // Step 1: Register webhook
+            
             String url = "https://bfhldevapigw.healthrx.co.in/hiring/generateWebhook/JAVA";
             JSONObject requestBody = new JSONObject();
-            requestBody.put("name", "Sanika A M"); // Replace with your real name
-            requestBody.put("regNo", "PES2UG22CS500"); // Replace with your real reg no
-            requestBody.put("email", "sanikaamshetty@gmail.com"); // Replace with your registered email
+            requestBody.put("name", "Sanika A M"); 
+            requestBody.put("regNo", "PES2UG22CS500"); 
+            requestBody.put("email", "sanikaamshetty@gmail.com"); 
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -31,10 +31,10 @@ public class WebhookService {
             String rawResponse = response.getBody();
             System.out.println("🌐 Raw Response from generateWebhook: " + rawResponse);
 
-            // Parse the JSON response
+            
             JSONObject jsonResponse = new JSONObject(rawResponse);
 
-            // Correct key is "webhook", not "webhookUrl"
+            
             if (!jsonResponse.has("webhook") || !jsonResponse.has("accessToken")) {
                 System.err.println("❌ Missing 'webhook' or 'accessToken' in response. Please check API request details.");
                 return;
